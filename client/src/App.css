@@ -8,6 +8,7 @@
 
 :root{
      --main-color: rgb(21, 126, 62);
+     --regular-font: "Outfit", sans-serif;
 }
 
 body{
@@ -29,6 +30,14 @@ button,
 textarea{
      outline: none;
      border: none;
+     font-family: var(--regular-font);
+}
+
+input::placeholder,
+textarea::placeholder{
+        color: rgb(170, 170, 170);
+        font-weight: 360;
+        font-size: 14px;
 }
 
 img{

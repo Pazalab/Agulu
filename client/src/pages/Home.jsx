@@ -11,6 +11,7 @@ import { TbSquareRoundedCheckFilled } from "react-icons/tb";
 import { GiMoneyStack } from "react-icons/gi";
 import { TbMenu4 } from "react-icons/tb";
 import { useState } from "react";
+import Copyright from "../components/common/Copyright";
 
 const Home = () => {
     const [ active, setActive ] = useState(false);
@@ -94,12 +95,8 @@ const Home = () => {
                                                              </div>
                                                  </div>
                                     </div>
-
-
-
-                                    <div className="footer-copyright">
-                                              <p>All rights reserved <span>&copy;</span> { new Date().getFullYear() } Pazalab Web Agency&trade;</p>
-                                    </div>
+                                     
+                                     <Copyright />
                        </div>
              </div>
     </div>
