@@ -49,6 +49,12 @@
        align-items: center;
        flex-direction: column;
 }
+
+.signup-tab,
+.account-confirm-tab{
+      display: flex;
+      justify-content: center;
+}
 .form-grid-texts{
       width: 75%;
 }
@@ -109,7 +115,9 @@
 }
 
 .form-control:focus,
-.form-input-password:has(input:focus){
+.form-input-password:has(input:focus),
+.form-row:has(.error) .form-control,
+.form-row:has(.error) .form-input-password{
      border: 1px solid rgba(10, 160, 105, 0.2);
 }
 
@@ -178,6 +186,10 @@
       -moz-transition: all 0.8s ease;
       -ms-transition: all 0.8s ease;
       -o-transition: all 0.8s ease;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 4px;
 }
 .form-row button:hover{
       background: rgb(15, 112, 59);
@@ -239,6 +251,7 @@
        margin-top: 10px;
        gap: 4px;
        width: 100% !important;
+       align-items: center;
 }
 
 .redirect a{
@@ -250,6 +263,11 @@
     display: flex;
     margin-top: 3px;
     font-size: 18px;
+}
+.redirect span.click{
+       font-size: 14px;
+       color: var(--main-color);
+       cursor: pointer;
 }
 .auth-container .footer-copyright{
         display: none;

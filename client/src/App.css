@@ -52,6 +52,37 @@ img{
      margin: auto;
 }
 
+.spin-loader{
+       width: 20px;
+       height: 20px;
+       display: flex;
+       flex-shrink: 0;
+       border-radius: 50px;
+       -webkit-border-radius: 50px;
+       -moz-border-radius: 50px;
+       -ms-border-radius: 50px;
+       -o-border-radius: 50px;
+       border: 2px solid rgb(148, 222, 148);
+       border-bottom-color: white;
+       animation: rotation 1s linear infinite;
+       -webkit-animation: rotation 1s linear infinite;
+}
+@keyframes rotation{
+        0%{ transform: rotate(0deg); -webkit-transform: rotate(0deg); -moz-transform: rotate(0deg); -ms-transform: rotate(0deg); -o-transform: rotate(0deg); }
+        100%{
+              transform: rotate(360deg);
+              -webkit-transform: rotate(360deg);
+              -moz-transform: rotate(360deg);
+              -ms-transform: rotate(360deg);
+              -o-transform: rotate(360deg);
+}
+}
+
+.error{
+       font-size: 13px;
+       font-weight: 300;
+       color: rgb(249, 27, 27);
+}
 .logo{
      display: flex;
      align-items: flex-end;

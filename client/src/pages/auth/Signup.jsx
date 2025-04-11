@@ -1,13 +1,36 @@
 import "../../css/auth.css"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { RxDotFilled } from "react-icons/rx";
 import { VscEye, VscEyeClosed } from "react-icons/vsc";
 import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import Copyright from "../../components/common/Copyright";
+import Spinner from "../../components/common/Spinner";
+import { useForm } from "react-hook-form"
+import { useRegisterUserMutation } from "../../redux/userSlice";
+import { useDispatch } from "react-redux";
+import AccountConfirmTab from "../../components/auth/AccountConfirmTab";
 
 const Signup = () => {
     const [ eyeStatus, setEyeStatus ] = useState(false)
+    const { register, handleSubmit, formState: { errors }, reset} = useForm();
+    const [ registerUser, { isLoading } ] = useRegisterUserMutation();
+    const [ confirmActive, setConfirmActive ] = useState(true)
+
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const CreateUser = async (data) => {
+          console.log(data)
+          try {
+                const res = await registerUser(data).unwrap();
+                if(res){
+                      reset();
+                }
+          } catch (error) {
+                console.log(error)
+          }
+    }
   return (
         <div className="auth-container">
             <div className="auth-wrapper">
@@ -30,49 +53,62 @@ const Signup = () => {
                                           <span><RxDotFilled /></span>
                                    </Link>
                            </div>
-                           <div className="form-grid-texts">
-                                      <h2>Get Started with Agulu</h2>
-                                      <p>Sign up in minutes and unlock a smarter way to manage your finances, credit, and reports—all in one place.</p>
+        
+                             <div className="form-tab-container">
+                                    { confirmActive ? 
+                                                 <AccountConfirmTab func={setConfirmActive} />
+                                              :
+                                        <div className="signup-tab">
+                                              <div className="form-grid-texts">
+                                                      <h2>Get Started with Agulu</h2>
+                                                      <p>Sign up in minutes and unlock a smarter way to manage your finances, credit, and reports—all in one place.</p>
 
-                                    <form>
-                                                <div className="form-row">
-                                                           <label htmlFor="name">Name <span>*</span></label>
-                                                           <input type="text" className="form-control" placeholder="Your Name"  />
-                                                </div>
-                                                <div className="form-row">
-                                                           <label htmlFor="email">Email Address <span>*</span></label>
-                                                           <input type="email" className="form-control" placeholder="Your Email" />
-                                                </div>
-                                                <div className="form-row">
-                                                             <label htmlFor="password">Password <span>*</span></label>
-                                                             <div className="form-input-password">
-                                                                         <input type={ eyeStatus ? "text" : "password"} placeholder="Your Password"/>
-                                                                         <div className="input-switch" onClick={() => setEyeStatus(!eyeStatus)}>
-                                                                                    { eyeStatus ? <span className="open"><VscEyeClosed /></span> :
-                                                                                            <span className="closed"><VscEye /></span>
-                                                                                    }
-                                                                         </div>
+                                                    <form onSubmit={handleSubmit(CreateUser)}>
+                                                             <div className="form-row">
+                                                                        <label htmlFor="name">Name <span>*</span></label>
+                                                                        <input type="text" { ...register("name", { required: "Your name is required"})} className="form-control" placeholder="Your Name"  />
+                                                                       { errors.name ? <span className="error">{errors.name.message}</span> : ""}
                                                              </div>
-                                                </div>
-                                                <div className="form-row">
-                                                            <button type="submit">Create Account</button>
-                                                </div>
+                                                             <div className="form-row">
+                                                                        <label htmlFor="email">Email Address <span>*</span></label>
+                                                                        <input type="email" {...register("email", { required: "Your email is required"})} className="form-control" placeholder="Your Email" />
+                                                                      { errors.email ? <span className="error">{errors.email.message}</span> : ""}
+                                                            </div>
+                                                             <div className="form-row">
+                                                                          <label htmlFor="password">Password <span>*</span></label>
+                                                                          <div className="form-input-password">
+                                                                                      <input type={ eyeStatus ? "text" : "password"} {...register("password", { required: "Please input a strong password - min 8 chars", minLength: 8})}  placeholder="Your Password"/>
+                                                                                      <div className="input-switch" onClick={() => setEyeStatus(!eyeStatus)}>
+                                                                                                 { eyeStatus ? <span className="open"><VscEyeClosed /></span> :
+                                                                                                         <span className="closed"><VscEye /></span>
+                                                                                                 }
+                                                                                      </div>
+                                                                          </div>
+                                                          
+                                                                          { errors.password ? <span className="error">{errors.password.message}</span> : ''}
+                                                             </div>
+                                                             <div className="form-row">
+                                                                         <button type="submit"> { isLoading ? <Spinner /> : "Create Account"}</button>
+                                                             </div>
 
-                                               <div className="form-row">
-                                                         <div className="alternative">
-                                                                    <div className="line"></div>
-                                                                    <p>Or register with</p>
-                                                                    <div className="line"></div>
-                                                          </div>
-                                               </div>
+                                                             <div className="form-row">
+                                                                       <div className="alternative">
+                                                                                  <div className="line"></div>
+                                                                                  <p>Or register with</p>
+                                                                                  <div className="line"></div>
+                                                                        </div>
+                                                             </div>
 
-                                                <div className="google-option">
-                                                            <button><span><FcGoogle /></span> Sign up with Google</button>
-                                                </div>
+                                                             <div className="google-option">
+                                                                         <button><span><FcGoogle /></span> Sign up with Google</button>
+                                                             </div>
 
-                                                <p className="redirect">Already have an account? <Link to={"/auth/login"}>Login</Link></p>
-                                     </form>
-                           </div>
+                                                               <p className="redirect">Already have an account? <Link to={"/auth/login"}>Login</Link></p>
+                                                    </form>
+                                          </div>
+                                   </div>
+                                          }
+                             </div>
               </div>
     </div>
     <Copyright />
