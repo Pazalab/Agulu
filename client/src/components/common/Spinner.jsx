@@ -1,7 +1,7 @@
 
 const Spinner = () => {
   return (
-       <span class="spin-loader"></span>
+       <span className="spin-loader"></span>
   )
 }
 

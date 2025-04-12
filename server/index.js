@@ -3,7 +3,8 @@ import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import connectToDatabase from "./config/db.js";
 import cors from "cors";
-import userRoutes from "./routes/userRoutes.js"
+import userRoutes from "./routes/userRoutes.js";
+import { notFound, errorHandler } from "./middlewares/errorMiddleware.js"
 
 //Initialize express for use
 const app = express();
@@ -22,10 +23,14 @@ app.use(cookieParser());
 app.use(cors({
     credentials: true,
     origin: true
-}))
+}));
 
 /* Routes */
 app.use("/api/user", userRoutes);
+
+//Error handling
+app.use(notFound);
+app.use(errorHandler);
 
 app.listen(port, () => console.log(`Server listening at port ${port}`));
 

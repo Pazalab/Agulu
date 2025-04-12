@@ -305,8 +305,51 @@
       width: 100%;
       height: 1px;
 }
-
-
+.account-confirm-tab p.top{
+       width: 90%;
+}
+.account-confirm-tab h2{
+        font-size: 32px !important;
+        font-weight: 500 !important;
+}
+.notification-bar{
+       width: 100%;
+       display: flex;
+       justify-content: center;
+       padding: 12px 0;
+       margin-bottom: 10px;
+       border-radius: 8px;
+       -webkit-border-radius: 8px;
+       -moz-border-radius: 8px;
+       -ms-border-radius: 8px;
+       -o-border-radius: 8px;
+       display: none;
+}
+.account-confirm-tab .notification-bar{
+        width: 90%;
+}
+.notification-bar.active{
+       display: flex;
+}
+.notification-bar.success{
+      background: rgba(54, 208, 113, 0.3);
+}
+.notification-bar.error{
+       background: rgba(255, 115, 115, 0.3);
+}
+.notification-bar p{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-bottom: 0;
+        font-size: 14px;
+}
+.notification-bar.success p{
+      color: var(--main-color);
+}
+.notification-bar.error p{
+      color: rgb(255, 41, 41);
+}
 
 
 

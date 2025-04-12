@@ -1,5 +1,5 @@
 import "../../css/auth.css"
-import { Link, useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
 import { RxDotFilled } from "react-icons/rx";
 import { VscEye, VscEyeClosed } from "react-icons/vsc";
 import { useState } from "react";
@@ -10,25 +10,31 @@ import { useForm } from "react-hook-form"
 import { useRegisterUserMutation } from "../../redux/userSlice";
 import { useDispatch } from "react-redux";
 import AccountConfirmTab from "../../components/auth/AccountConfirmTab";
+import NotificationBar from "../../components/common/NotificationBar";
+import { setNotification } from "../../redux/utilsSlice";
+import { setTempUserDetails } from "../../redux/authSlice";
 
 const Signup = () => {
     const [ eyeStatus, setEyeStatus ] = useState(false)
     const { register, handleSubmit, formState: { errors }, reset} = useForm();
     const [ registerUser, { isLoading } ] = useRegisterUserMutation();
-    const [ confirmActive, setConfirmActive ] = useState(true)
+    const [ confirmActive, setConfirmActive ] = useState(false);
 
-    const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const CreateUser = async (data) => {
-          console.log(data)
           try {
                 const res = await registerUser(data).unwrap();
-                if(res){
-                      reset();
+                if(res.error){
+                      dispatch(setNotification({ status: true, message: res.error.data.message, type: "error"}))
+                }else{
+                      //console.log(res)
+                      dispatch(setTempUserDetails({...res}));
+                      dispatch(setNotification({ status: true, message: res.message, type: "success"}));
+                      setConfirmActive(true);
                 }
           } catch (error) {
-                console.log(error)
+                dispatch(setNotification({ status: true, message: error.data.message, type: "error"}))
           }
     }
   return (
@@ -56,7 +62,7 @@ const Signup = () => {
         
                              <div className="form-tab-container">
                                     { confirmActive ? 
-                                                 <AccountConfirmTab func={setConfirmActive} />
+                                                 <AccountConfirmTab func={setConfirmActive}  />
                                               :
                                         <div className="signup-tab">
                                               <div className="form-grid-texts">
@@ -90,7 +96,9 @@ const Signup = () => {
                                                              <div className="form-row">
                                                                          <button type="submit"> { isLoading ? <Spinner /> : "Create Account"}</button>
                                                              </div>
-
+                                                             <div className="form-row">
+                                                                      <NotificationBar />
+                                                             </div>
                                                              <div className="form-row">
                                                                        <div className="alternative">
                                                                                   <div className="line"></div>

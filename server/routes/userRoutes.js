@@ -1,7 +1,8 @@
 import express from "express";
 const router = express.Router();
-import { RegisterUser } from "../controllers/userController.js";
+import { RegisterUser, verifyActivationCode } from "../controllers/userController.js";
 
 router.post("/register", RegisterUser);
+router.post("/account-activation", verifyActivationCode);
 
 export default router;
