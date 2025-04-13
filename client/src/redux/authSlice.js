@@ -13,6 +13,10 @@ const authSlice = createSlice({
                       state.userInfo = action.payload;
                       localStorage.setItem("UserInfo", JSON.stringify(action.payload))
                },
+               clearCredentials: (state) => {
+                      state.userInfo = null;
+                      localStorage.removeItem("UserInfo")
+               },
                setTempUserDetails: (state, action) => {
                       state.tempUser = action.payload;
                       localStorage.setItem("TempUser", JSON.stringify(action.payload))
@@ -26,6 +30,7 @@ const authSlice = createSlice({
 
 export const {
         setCredentials,
+        clearCredentials,
         setTempUserDetails,
         clearTempUserDetails
 } = authSlice.actions;

@@ -15,6 +15,40 @@ export const userSlice = apiSlice.injectEndpoints({
                               method: "POST",
                               body: payload
                        })
+                }),
+                resendAccountCode: builder.mutation({
+                        query: (payload) => ({
+                                url: '/user/resend-activation-code',
+                                method: "POST",
+                                body: payload
+                        })
+                }),
+                loginUser: builder.mutation({
+                         query: (payload) => ({
+                                  url: "/user/login",
+                                  method: "POST",
+                                  body: payload
+                         })
+                }),
+                logoutMemberOut: builder.mutation({
+                        query: () => ({
+                                url: "/user/logout",
+                                method: "POST"
+                        })
+                }),
+                submitEmailForgotPassword: builder.mutation({
+                         query: (payload) => ({
+                                url: "/user/forgot-password",
+                                method: "POST",
+                                body: payload
+                         })
+                }),
+                validateForgetPasscode: builder.mutation({
+                        query: (payload) => ({
+                                url: "/user/verify-forgot-password-code",
+                                method: "POST",
+                                body: payload
+                        })
                 })
         })
 })
@@ -22,5 +56,9 @@ export const userSlice = apiSlice.injectEndpoints({
 export const {
      useRegisterUserMutation,
      useActivateUserMutation,
-     
+     useResendAccountCodeMutation,
+     useLoginUserMutation,
+     useLogoutMemberOutMutation,
+     useSubmitEmailForgotPasswordMutation,
+     useValidateForgetPasscodeMutation
 } = userSlice;

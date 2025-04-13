@@ -1,3 +1,5 @@
+import Code from "../models/verificationCode.js";
+
 export const generateOTP = () => {
     const digits = process.env.OTP_STRING;
     const otpLength = 6;
@@ -8,3 +10,10 @@ export const generateOTP = () => {
     }
     return otp;
 } 
+
+
+export const manuallyExpireOTP = async (id) => {
+        await Code.findByIdAndUpdate(id, {
+               expired: true
+        })
+}

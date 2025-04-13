@@ -49,9 +49,14 @@
        align-items: center;
        flex-direction: column;
 }
+.form-tab-container{
+       width: 100%; 
+}
 
 .signup-tab,
-.account-confirm-tab{
+.login-tab,
+.account-confirm-tab,
+.userconfirm-tab{
       display: flex;
       justify-content: center;
 }
@@ -288,6 +293,7 @@
      gap: 3px;
      width: 100% !important;
      margin: 20px 0;
+     align-items: center;
 }
 .resend span{
        font-weight: 400 !important;
@@ -295,6 +301,9 @@
        font-size: 15px;
        color: var(--main-color);
        cursor: pointer;
+       display: flex;
+       align-items: center;
+       gap: 5px;
 }
 .resend span::after{
       position: absolute;
@@ -304,6 +313,9 @@
       background: var(--main-color);
       width: 100%;
       height: 1px;
+}
+.resend span:has(.spin-loader)::after{
+        width: 80%;
 }
 .account-confirm-tab p.top{
        width: 90%;
@@ -325,7 +337,10 @@
        -o-border-radius: 8px;
        display: none;
 }
-.account-confirm-tab .notification-bar{
+.account-confirm-tab .notification-bar,
+.forgot-tab .notification-bar,
+.code-tab .notification-bar,
+.reset-tab .notification-bar{
         width: 90%;
 }
 .notification-bar.active{
@@ -351,6 +366,16 @@
       color: rgb(255, 41, 41);
 }
 
+.forgot-tab,
+.code-tab,
+.reset-tab{
+      display: none;
+}
+.forgot-tab.active,
+.code-tab.active,
+.reset-tab.active{
+       display: block;
+}
 
 
 @media(max-width: 1090px){
@@ -360,7 +385,8 @@
     .form-grid-texts .logo{
            display: flex;
     }
-       .form-grid-texts form{
+       .form-grid-texts form,
+       .account-confirm-tab .notification-bar{
                 width: 100%;
        }
        .auth-wrapper{

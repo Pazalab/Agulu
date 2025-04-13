@@ -1,13 +1,15 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { VscEye, VscEyeClosed } from "react-icons/vsc";
 import { Link } from "react-router-dom"
 import { RxArrowLeft } from "react-icons/rx";
+import { forgetTabContext } from "../../contexts/forgotTabContext";
 
 const ResetTab = () => {
     const [ eyeStatus, setEyeStatus ] = useState(false);
     const [ eyeStatus2, setEyeStatus2 ] = useState(false);
+    const [ activeTabStatus, setActiveTabStatus ] = useContext(forgetTabContext);
   return (
-    <div className="reset-tab">
+    <div className={ activeTabStatus === "reset" ? "reset-tab active" : "reset-tab"}>
             <h2>Set new password</h2>
             <p>Must be atleast 8 characters.</p>
 
@@ -37,7 +39,7 @@ const ResetTab = () => {
                     <div className="form-row">
                               <button type="submit">Reset Password</button>
                     </div>
-                    <p className="redirect"> <span><RxArrowLeft /></span><Link to={"/auth/login"}>Back to Login</Link></p>                            
+                    <p className="redirect" onClick={() => setActiveTabStatus("code")}> <span><RxArrowLeft /></span><span className="click">Go back</span></p>                            
             </form>
     </div>
   )

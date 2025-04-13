@@ -6,24 +6,18 @@ const codesSchema = mongoose.Schema({
             type: String,
             required: true
        },
-       expired: {
-            type: Boolean,
-            default: false
-       },
        user: {
             type: Schema.Types.ObjectId,
             required: true  
-       },
-       owner: {
-             type: String
        }
-}, { timestamps: true })
+})
 
 //Hash code
 codesSchema.pre("save", async function(next) {
        const salt = await bcrypt.genSalt(10);
 
        this.code = await bcrypt.hash(this.code, salt);
+
 })
 
 //Compare hashed otp code

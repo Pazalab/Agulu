@@ -26,26 +26,23 @@ export const sendAccountConfirmationCode = async(userData) => {
              from: `Agulu Team <${process.env.EMAIL}>`,
              to: `${email}`,
              name: "Agulu Team",
-             subject: "Agulu Account Verification",
+             subject: "Agulu Account Activation",
              html: html
       }
 
-      const activation = await Code.create({
-            user:  _id,
-            code: otp,
-            name: name,
-      })
+      //temporarily save the OTP to the DB
+      const codeCreated = await Code.create({
+             user:  _id, 
+             code: otp, 
+       });
 
-      if(activation){
-              setTimeout(async() => {
-                       await Code.findByIdAndUpdate(activation._id, {
-                             expired: true
-                       })
-              }, 180000)
+      if(codeCreated){
+            setTimeout(async() => {
+                  await Code.findByIdAndDelete(codeCreated._id);
+            }, 180000)
       }
-      
-         //Send email
-    mailTransport.sendMail(mailOptions).then(() => {
-           return true;
-    })
+     //Send email
+     mailTransport.sendMail(mailOptions).then(() => {
+            return true;
+     })
 }

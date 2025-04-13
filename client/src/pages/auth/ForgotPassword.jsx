@@ -4,8 +4,13 @@ import Copyright from "../../components/common/Copyright";
 import ForgotTab from "../../components/auth/ForgotTab";
 import CodeTab from "../../components/auth/CodeTab";
 import ResetTab from "../../components/auth/ResetTab";
+// eslint-disable-next-line no-unused-vars
+import { forgetTabContext } from "../../contexts/forgotTabContext";
+import { useState } from "react";
 
 const ForgotPassword = () => {
+  const [ activeTab, setActiveTab ] = useState("forgot")
+  
   return (
     <div className="auth-container">
     <div className="auth-wrapper">
@@ -28,9 +33,11 @@ const ForgotPassword = () => {
                                     </Link>
                              </div>
                              <div className="form-grid-texts">
-                                             {/* <ForgotTab /> */}
-                                             {/* <CodeTab /> */}
-                                             <ResetTab />
+                                          <forgetTabContext.Provider value={[activeTab, setActiveTab]}>
+                                                    <ForgotTab />
+                                                   <CodeTab />
+                                                   <ResetTab />
+                                          </forgetTabContext.Provider>
                              </div>
                 </div>
     </div>

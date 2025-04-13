@@ -1,11 +1,23 @@
+import { useContext } from "react";
 import { RxArrowLeft } from "react-icons/rx";
-import { Link } from "react-router-dom";
+import { forgetTabContext } from "../../contexts/forgotTabContext";
+import NotificationBar from "../common/NotificationBar";
+import { useSelector } from "react-redux";
+import { useForm } from "react-hook-form";
 
 const CodeTab = () => {
+  const [ activeTabStatus, setActiveTabStatus ] = useContext(forgetTabContext);
+  const { tempUser } = useSelector(state => state.auth);
+  const { register, handleSubmit, formState: { errors }} = useForm();
+
+  const confirmPasswordRequest = async (form_data) => {
+        
+  }
   return (
-    <div className='code-tab'>
+    <div className={ activeTabStatus === "code" ? "code-tab active": "code-tab"}>
+              <NotificationBar />
              <h2>Password Reset Code</h2>
-             <p>We have a code to <span>okundistar2030@gmail.com</span></p>
+             <p>We have sent you a code to <span>{ tempUser && tempUser.email }</span></p>
 
             <form>
                      <div className="form-row">
@@ -16,7 +28,7 @@ const CodeTab = () => {
                            <button type="submit">Continue</button>
                     </div>
                      <p className="resend">Didn't receive any email? <span>Click to Resend</span></p>
-                     <p className="redirect"> <span><RxArrowLeft /></span><Link to={"/auth/login"}>Back to Login</Link></p>
+                     <p className="redirect" onClick={() => setActiveTabStatus("forgot")}> <span><RxArrowLeft /></span><span className="click">Go back</span></p>
              </form>
     </div>
   )

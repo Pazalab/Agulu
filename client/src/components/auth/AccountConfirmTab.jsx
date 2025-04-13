@@ -7,6 +7,7 @@ import { useActivateUserMutation } from "../../redux/userSlice";
 import Spinner from "../common/Spinner";
 import { setNotification } from "../../redux/utilsSlice";
 import { setCredentials } from "../../redux/authSlice";
+import ResendActivation from "./ResendActivation";
 const AccountConfirmTab = ({ func }) => {
     const { register, handleSubmit, formState: { errors }} = useForm();
     const { tempUser } = useSelector(state => state.auth);
@@ -21,25 +22,19 @@ const AccountConfirmTab = ({ func }) => {
                   code: form_data.code
            }
 
-             const res = await validateCode(data).unwrap();
-             if(res.error){
-                    dispatch(setNotification({ status: true, message: res.error.data.message, type: "error"}))
-              }else{
-                   dispatch(setCredentials({...res}));
-                  navigate(`/${res.role}/${res.id}/dashboard`);
-             }
-        //    try {
-        //           const res = await validateCode(data).unwrap();
-        //           if(res.error){
-        //                 dispatch(setNotification({ status: true, message: res.error.data.message, type: "error"}))
-        //           }else{
-        //                 dispatch(setCredentials({...res}));
-        //                 navigate(`/${res.role}/${res.id}/dashboard`);
-        //           }
-        //    } catch (error) {
-        //           console.log(error)
-        //    }
+           try {
+                  const res = await validateCode(data).unwrap();
+                  if(!res){
+                         dispatch(setNotification({ status: true, message: "Internal server error. Please try again later.", type: "error"}))
+                  }else{
+                          dispatch(setCredentials({...res}));
+                          navigate(`/${res.role}/${res.id}/dashboard`);
+                  }
+           } catch (error) {
+                  dispatch(setNotification({ status: true, message: error.data.message, type: "error"}))
+           }
     }
+    
   return (
     <div className="account-confirm-tab">
                <div className="form-grid-texts">
@@ -56,7 +51,7 @@ const AccountConfirmTab = ({ func }) => {
                                 <div className="form-row">
                                       <button type="submit">{ isLoading ? <Spinner /> : "Continue" }</button>
                                </div>
-                                <p className="resend">Didn't receive any email? <span>Click to Resend</span></p>
+                                <ResendActivation />
                                 <p className="redirect"> <span><RxArrowLeft /></span> <span onClick={() => func(false)} className="click">Back to Account Sign up</span></p>
                           </form>
                </div>

@@ -16,7 +16,7 @@ import { setTempUserDetails } from "../../redux/authSlice";
 
 const Signup = () => {
     const [ eyeStatus, setEyeStatus ] = useState(false)
-    const { register, handleSubmit, formState: { errors }, reset} = useForm();
+    const { register, handleSubmit, formState: { errors }} = useForm();
     const [ registerUser, { isLoading } ] = useRegisterUserMutation();
     const [ confirmActive, setConfirmActive ] = useState(false);
 
@@ -25,10 +25,9 @@ const Signup = () => {
     const CreateUser = async (data) => {
           try {
                 const res = await registerUser(data).unwrap();
-                if(res.error){
-                      dispatch(setNotification({ status: true, message: res.error.data.message, type: "error"}))
+                if(!res){
+                      dispatch(setNotification({ status: true, message: "Internal Server Error. Please try again later."}))
                 }else{
-                      //console.log(res)
                       dispatch(setTempUserDetails({...res}));
                       dispatch(setNotification({ status: true, message: res.message, type: "success"}));
                       setConfirmActive(true);
