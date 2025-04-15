@@ -19,6 +19,7 @@ const Signup = () => {
     const { register, handleSubmit, formState: { errors }} = useForm();
     const [ registerUser, { isLoading } ] = useRegisterUserMutation();
     const [ confirmActive, setConfirmActive ] = useState(false);
+    const BASE_URL = import.meta.env.PROD ? import.meta.env.VITE_PROD_GOOGLE_URL : import.meta.env.VITE_DEV_GOOGLE_URL;
 
     const dispatch = useDispatch();
 
@@ -107,7 +108,7 @@ const Signup = () => {
                                                              </div>
 
                                                              <div className="google-option">
-                                                                         <button><span><FcGoogle /></span> Sign up with Google</button>
+                                                                         <Link className="google-btn" to={`${BASE_URL}google`}><span><FcGoogle /></span> Sign up with Google</Link>
                                                              </div>
 
                                                                <p className="redirect">Already have an account? <Link to={"/auth/login"}>Login</Link></p>

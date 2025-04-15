@@ -224,7 +224,7 @@
 .google-option{
     margin-bottom: 10px;
 }
-.google-option button{
+.google-option .google-btn{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -241,11 +241,11 @@
     color: rgb(80, 80, 80);
     cursor: pointer;
 }
-.google-option button span{
+.google-option .google-btn span{
       display: flex;
       margin-top: 1px;
 }
-.google-option button:hover{
+.google-option .google-btn:hover{
      background: rgb(242, 246, 244)
 }
 
@@ -304,10 +304,11 @@
        display: flex;
        align-items: center;
        gap: 5px;
+       position: relative;
 }
 .resend span::after{
       position: absolute;
-      bottom: 3px;
+      bottom: -2px;
       content: "";
       left: 0;
       background: var(--main-color);
@@ -340,7 +341,8 @@
 .account-confirm-tab .notification-bar,
 .forgot-tab .notification-bar,
 .code-tab .notification-bar,
-.reset-tab .notification-bar{
+.reset-tab .notification-bar,
+.userconfirm-tab .notification-bar{
         width: 90%;
 }
 .notification-bar.active{
@@ -376,6 +378,82 @@
 .reset-tab.active{
        display: block;
 }
+.success-wrapper{
+      width: 100%;
+      height: 100dvh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center ;
+      flex-direction: column;
+}
+.success-container{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+}
+.success-loader{
+      width: 45px;
+      height: 45px;
+      display: flex;
+      flex-shrink: 0;
+      border-radius: 50px;
+      -webkit-border-radius: 50px;
+      -moz-border-radius: 50px;
+      -ms-border-radius: 50px;
+      -o-border-radius: 50px;
+      border: 2px solid rgb(215, 240, 215);
+      border-bottom-color:var(--main-color);
+      animation: rotation 1s linear infinite;
+      -webkit-animation: rotation 1s linear infinite;
+}
+@keyframes rotation{
+       0%{ transform: rotate(0deg); -webkit-transform: rotate(0deg); -moz-transform: rotate(0deg); -ms-transform: rotate(0deg); -o-transform: rotate(0deg); }
+       100%{
+             transform: rotate(360deg);
+             -webkit-transform: rotate(360deg);
+             -moz-transform: rotate(360deg);
+             -ms-transform: rotate(360deg);
+             -o-transform: rotate(360deg);
+}
+}
+.success-texts h3{
+       font-size: 18px;
+       font-weight: 240;
+}
+.member-error{
+      padding: 20px;
+      border-radius: 6px;
+      -webkit-border-radius: 6px;
+      -moz-border-radius: 6px;
+      -ms-border-radius: 6px;
+      -o-border-radius: 6px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      background: rgba(255, 67, 67, 0.121);
+}
+.member-error p{
+       font-size: 15px;
+       font-weight:350;
+       color: rgb(58, 58, 58);
+}
+.member-error a{
+        font-size: 12px;
+        background: var(--main-color);
+        display: flex;
+        padding: 10px 20px;
+        font-weight: 300;
+        border-radius: 20px;
+        -webkit-border-radius: 20px;
+        -moz-border-radius: 20px;
+        -ms-border-radius: 20px;
+        -o-border-radius: 20px;
+        color: whitesmoke;
+}
+
 
 
 @media(max-width: 1090px){
@@ -411,5 +489,9 @@
        }
        .form-grid-texts p{
             font-size: 15px;
+       }
+       .member-error{
+               width: 80%;
+               gap: 10px
        }
 }

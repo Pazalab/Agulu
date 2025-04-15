@@ -19,7 +19,7 @@ const UserConfirm = ({ func }) => {
     const sendActivationCode = async (form_data) => {
           const data = {
                user_id: tempUser && tempUser.id,
-              code: form_data.code
+               code: form_data.code
           }
 
          try {
@@ -28,7 +28,8 @@ const UserConfirm = ({ func }) => {
                           dispatch(setNotification({ status: true, message: "Internal server error. Please try again later.", type: "error"}))
                   }else{
                         dispatch(setCredentials({...res}));
-                        navigate(`/${res.role}/${res.id}/dashboard`);
+                        //navigate(`/${res.role}/${res.id}/dashboard`);
+                        navigate("/auth/success")
                   }
           } catch (error) {
                 dispatch(setNotification({ status: true, message: error.data.message, type: "error"}))
@@ -39,7 +40,7 @@ const UserConfirm = ({ func }) => {
                <div className="form-grid-texts">
                          <NotificationBar />
                           <h2>Hi { tempUser && tempUser.name.split(" ")[0]}! Please activate your Account.</h2>
-                          <p className="top">We have sent an activation code to <span>{ tempUser && tempUser.email }</span> . Kindly enter it below to activate your account.</p>
+                          <p className="top">We have sent an activation code to <span>{ tempUser && tempUser.email }</span> . Kindly input it below to activate your account.</p>
 
                           <form onSubmit={handleSubmit(sendActivationCode)}>
                               <div className="form-row">

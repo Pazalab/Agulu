@@ -18,9 +18,9 @@ export const sendWelcomeMessageToMember = async(userData) => {
         const html = ejs.render(templateString, dynamicData);
 
         const mailOptions = {
-              from: `Agulu Team <${process.env.EMAIL}>`,
+              from: `Agulu<${process.env.EMAIL}>`,
               to: `${email}`,
-              name: "Agulu Team",
+              name: "Agulu",
               subject: `Welcome to Agulu ${single_name}`,
               html: html
         }

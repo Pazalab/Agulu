@@ -28,7 +28,8 @@ const AccountConfirmTab = ({ func }) => {
                          dispatch(setNotification({ status: true, message: "Internal server error. Please try again later.", type: "error"}))
                   }else{
                           dispatch(setCredentials({...res}));
-                          navigate(`/${res.role}/${res.id}/dashboard`);
+                          //navigate(`/${res.role}/${res.id}/dashboard`);
+                          navigate("/auth/success")
                   }
            } catch (error) {
                   dispatch(setNotification({ status: true, message: error.data.message, type: "error"}))

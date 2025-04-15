@@ -2,10 +2,11 @@ import asyncHandler from "express-async-handler";
 import User from "../models/userModel.js";
 import { sendAccountConfirmationCode } from "../mail/accountActivation.js";
 import Code from "../models/verificationCode.js";
-import mongoose, { isValidObjectId } from "mongoose";
+import mongoose from "mongoose";
 import { generateTokenForMembers } from "../utils/generateCookieTokens.js";
 import { sendWelcomeMessageToMember } from "../mail/sendMemberWelcomeMail.js";
 import { sendResetPasswordCodeMail } from "../mail/sendMemberResetPasswordEmail.js";
+import { sendMemberPasswordResetSuccessMessage } from "../mail/sendMemberPasswordSuccess.js";
 
 //Register User
 export const RegisterUser = asyncHandler(async(req, res) => {
@@ -72,6 +73,7 @@ export const verifyActivationCode = asyncHandler(async(req, res) => {
         }      
 })
 
+//resend Activation code
 export const resendActivationCode = asyncHandler(async(req, res) => {
          const { id } = req.body;
          const user_id = new mongoose.Types.ObjectId(`${id}`);
@@ -96,13 +98,14 @@ export const resendActivationCode = asyncHandler(async(req, res) => {
          }
 })
 
+//login user
 export const LoginUser = asyncHandler(async(req, res) => {
       const { email, password } = req.body;
 
       const user = await User.findOne({ email });
       if(!user){
             res.status(401);
-            throw new Error("Invalid account details. Please create an account.");
+            throw new Error("Invalid account credentials. Please create an account.");
       }
  
       const isUserVerified = user.verified;
@@ -119,22 +122,29 @@ export const LoginUser = asyncHandler(async(req, res) => {
 
             }else{
                    res.status(401);
-                   throw new Error("Invalid email or password. Please try again.")
+                   throw new Error("Invalid credentials. Please try again with the correct ones.")
             }
       }else{
               if(user && (await user.matchPasswords(password))){
-                    const code_sent = sendAccountConfirmationCode(user);
-                    if(!code_sent) {
-                             res.status(500);
-                             throw new Error("Internal server error. Code not sent.")
+                    const codeExists = await Code.findOne({ user: user._id})
+                    if(codeExists){
+                           const deleteExisting = await Code.findByIdAndDelete(codeExists._id);
+                           if(deleteExisting){
+                              const code_sent = sendAccountConfirmationCode(user);
+                              if(!code_sent) {
+                                       res.status(500);
+                                       throw new Error("Internal server error. Code not sent.")
+                              }
+                              res.status(201).json({
+                                      message: "Login Successful",
+                                      name: user.name,
+                                      id: user._id,
+                                      email: user.email,
+                                      verified: false
+                              })
+                           }
                     }
-                    res.status(201).json({
-                            message: "Login Successful",
-                            name: user.name,
-                            id: user._id,
-                            email: user.email,
-                            verified: false
-                    })
+                   
               }else{
                     res.status(401);
                     throw new Error("Invalid email or password. Please try again.")
@@ -143,6 +153,7 @@ export const LoginUser = asyncHandler(async(req, res) => {
 })
 
 
+//Logout
 export const logoutUser = asyncHandler(async(req, res) => {
         res.cookie("jwt", "", {
                httpOnly: true,
@@ -151,6 +162,7 @@ export const logoutUser = asyncHandler(async(req, res) => {
         res.status(200).json({ message: "You have logged out of your account."})
 })
 
+//send reset password code to the user
 export const validateForgetPasswordEmail = asyncHandler(async(req, res) => {
          const { email } = req.body;
 
@@ -160,8 +172,6 @@ export const validateForgetPasswordEmail = asyncHandler(async(req, res) => {
                 res.status(404);
                 throw new Error("Mmh...You don't seem to have an account with us. Consider creating one.")
          }
-
-        
          const codeExists = await Code.findOne({ user: accountExists._id});
          if(codeExists){
                 const deleteExisting = await Code.findByIdAndDelete(codeExists._id);
@@ -197,6 +207,69 @@ export const validateForgetPasswordEmail = asyncHandler(async(req, res) => {
          }
 })
 
+//confirm if its the right code
 export const validateForgetPasswordCode = asyncHandler(async(req, res)=>{
-        console.log(req.body)
+        const { user_id, code } = req.body;
+
+        const tempCode = await Code.findOne({ user: new mongoose.Types.ObjectId(`${user_id}`)});
+        
+        if(tempCode && (await tempCode.matchCodes(code))){
+               res.status(201).json({
+                       message: "Success! You can proceed to create a new password."
+               })
+        }else{
+               res.status(500).json({
+                       message: "Invalid password reset code."
+               })
+        }
+})
+
+//resend code to user
+export const resendForgotPasswordCode = asyncHandler(async(req, res) => {
+        const { id } = req.body;
+        const user_id = new mongoose.Types.ObjectId(`${id}`);
+        const user = await User.findById(user_id);
+        const codeExists = await Code.findOne({ user: user_id});
+
+        if(codeExists){
+               await Code.findByIdAndDelete(codeExists._id);
+        }
+
+        if(user){
+               const new_code = sendResetPasswordCodeMail(user);
+               if(new_code){
+                      res.status(201).json({
+                             message: "We have sent you a new reset password code."
+                      })
+               }else{
+                     res.status(500);
+                     throw new Error("Internal server error. Code not sent.")
+               }
+        }
+})
+
+//Now reset member password
+export const resetMemberPassword = asyncHandler(async(req, res) => {
+        const { user_id, password } = req.body;
+
+        const user = await User.findById(user_id);
+        if(!user){
+             res.status(500);
+             throw new Error("Mmh...An error occured while trying to create a new password. Please try again later. ")
+        }
+
+      const updateUser = await User.findByIdAndUpdate(user_id, {
+            password: password
+       }, { new: true});
+
+       if(updateUser){ 
+              sendMemberPasswordResetSuccessMessage(user);
+             res.status(201).json({
+                   message: "Password reset successful."
+             })
+      }else{
+            res.status(500).json({
+                    message: "Password reset unsuccessful"
+            })
+      }
 })

@@ -6,6 +6,7 @@ import Login from './pages/auth/Login'
 import ForgotPassword from './pages/auth/ForgotPassword'
 import MemberRoutes from "./utils/MemberRoutes"
 import Dashboard from './pages/members/Dashboard'
+import Success from './pages/auth/Success'
 function App() {
 
   return (
@@ -14,10 +15,10 @@ function App() {
                <Route path='/auth/login' element={<Login />} />
                <Route path='/auth/signup' element={<Signup />} />
                <Route path='/auth/forgot-password' element={<ForgotPassword />} />
-
+               <Route path='/auth/success' element={<Success />} />
                { /* Protected Routes */}
                <Route  element={<MemberRoutes />}>
-                             <Route path='/member/:id/dashboard' element={<Dashboard />} />
+                             <Route path='/member/:id' element={<Dashboard />} />
                </Route>
     </Routes>
   )

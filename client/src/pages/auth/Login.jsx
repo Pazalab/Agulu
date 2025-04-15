@@ -19,7 +19,8 @@ const Login = () => {
     const { register, handleSubmit, formState: { errors }} = useForm();
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [ userConfirm, setUserConfirm ] = useState(false)
+    const [ userConfirm, setUserConfirm ] = useState(false);
+    const BASE_URL = import.meta.env.PROD ? import.meta.env.VITE_PROD_GOOGLE_URL : import.meta.env.VITE_DEV_GOOGLE_URL;
 
     const loginMember = async(data) => {
           try {
@@ -27,14 +28,15 @@ const Login = () => {
                 if(!res){
                            dispatch(setNotification({ status: true, message: "Internal Server Error. Please try again later.", type: "error"}))
                 }else{
-                        console.log(res)
                         if(res.verified){
                               dispatch(setCredentials({...res}))
-                              navigate(`/${res.role}/${res.id}/dashboard`);
+                              //navigate(`/${res.role}/${res.id}/dashboard`);
+                              navigate("/auth/success")
+                        }else{
+                              dispatch(setTempUserDetails({...res}));
+                              dispatch(setNotification({ status: true, message: res.message, type: "success"}));
+                              setUserConfirm(true)
                         }
-                         dispatch(setTempUserDetails({...res}));
-                         dispatch(setNotification({ status: true, message: res.message, type: "success"}));
-                         setUserConfirm(true)
                  }
           } catch (error) {
                // console.log(error)
@@ -100,13 +102,13 @@ const Login = () => {
                                                                              <div className="form-row">
                                                                                        <div className="alternative">
                                                                                                  <div className="line"></div>
-                                                                                                  <p>Or register with</p>
+                                                                                                  <p>Or login with</p>
                                                                                                   <div className="line"></div>
                                                                                         </div>
                                                                              </div>
 
                                                                               <div className="google-option">
-                                                                                          <button><span><FcGoogle /></span> Login with Google</button>
+                                                                                          <Link className="google-btn" to={`${BASE_URL}google`}><span><FcGoogle /></span> Login with Google</Link>
                                                                               </div>
 
                                                                                <p className="redirect">Don't have an account yet? <Link to={"/auth/signup"}>Sign up</Link></p>

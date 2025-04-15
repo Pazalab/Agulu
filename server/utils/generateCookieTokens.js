@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-// import { v4 as uuidv4 } from "uuid";
+//import { v4 as uuidv4 } from "uuid";
 
 export const generateTokenForMembers = (res, userId) => {
      const token = jwt.sign({ userId }, process.env.JWT_SECRET, { expiresIn: "30d"});
@@ -9,5 +9,5 @@ export const generateTokenForMembers = (res, userId) => {
            secure: process.env.NODE_ENV == "production",
            sameSite: "strict",
            maxAge: 2592000000 //cookie expires after 30 days
-     })
+     }) 
 }

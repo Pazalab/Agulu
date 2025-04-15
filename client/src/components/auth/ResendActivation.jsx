@@ -19,10 +19,11 @@ const ResendActivation = () => {
                }
          } catch (error) {
                  dispatch(setNotification({ status: true, message: error.data.message, type: "error"}))
+                 console.log(error)
          }
 }
   return (
-          <p className="resend">Didn't receive any email? <span onClick={resendActivationCode}>Resend Code { isLoading ? <Spinner /> : ""}</span></p>
+          <div className="resend">Didn't receive any email? <span onClick={resendActivationCode}>Click to Resend { isLoading ? <Spinner /> : ""}</span></div>
   )
 }
 

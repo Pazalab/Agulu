@@ -23,9 +23,9 @@ export const sendResetPasswordCodeMail = async(userData) => {
        const html = ejs.render(templateString, dynamicData);
 
        const mailOptions = {
-             from: `Agulu Team <${process.env.EMAIL}>`,
+             from: `Agulu<${process.env.EMAIL}>`,
              to: `${email}`,
-             name: "Agulu Team",
+             name: "Agulu",
              subject: "Request to change your Agulu account password",
              html: html
        }
