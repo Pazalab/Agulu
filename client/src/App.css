@@ -9,6 +9,7 @@
 :root{
      --main-color: rgb(21, 126, 62);
      --regular-font: "Outfit", sans-serif;
+     --faded: rgba(238, 247, 242, 0.779);
 }
 
 body{
@@ -46,6 +47,18 @@ img{
      object-fit: cover;
 }
 
+::-webkit-scrollbar {
+      width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+      background: var(--main-color);
+      border-radius:3px;
+      -webkit-border-radius:3px;
+      -moz-border-radius:3px;
+      -ms-border-radius:3px;
+      -o-border-radius:3px;
+}
 /* utils */
 .inner-row{
      width: 1250px;
