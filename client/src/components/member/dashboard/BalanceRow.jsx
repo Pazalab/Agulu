@@ -41,7 +41,7 @@ const BalanceRow = () => {
                                              <h1>14,115.00</h1>
                                    </div>
                         </div>
-                        <p className="credit-limit">Credit Limit: <span className="ksh">Ksh.</span><span className="number">7057.50</span></p>
+                        <p className="credit-limit">Credit Limit: <span className="ksh">Ksh.</span><span className="number">7,057.50</span></p>
                          <p className="interest-earned">Interest Earned: <span className="ksh">Ksh.</span><span className="number">456.50</span></p>
               </div>
               <div className="extra-balances-column">

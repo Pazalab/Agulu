@@ -1,33 +1,14 @@
-import { useDispatch, useSelector } from "react-redux";
-import { useLogoutMemberOutMutation } from "../../redux/userSlice"
-import { clearCredentials, clearTempUserDetails } from "../../redux/authSlice";
-import { setNotification } from "../../redux/utilsSlice";
-import { useNavigate } from "react-router-dom";
-import { clearMemberProfile } from "../../redux/profileActionsSlice";
+import {  useSelector } from "react-redux";
 import "../../css/member/member_dashboard.css"
 import Sidebar from "../../components/common/member/Sidebar";
 import Topbar from "../../components/common/member/Topbar";
 import { useEffect, useState } from "react";
 import BalanceRow from "../../components/member/dashboard/BalanceRow";
 import ChartPlusMembersRow from "../../components/member/dashboard/ChartPlusMembersRow";
+import TransactionRow from "../../components/member/dashboard/TransactionRow";
 const Dashboard = () => {
-  const [ logoutUser ] = useLogoutMemberOutMutation();
   const { userInfo } = useSelector(state => state.auth)
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [ greeting, setGreeting ] = useState("Hi")
-
-  const logoutMember = async() =>{
-         const res = await logoutUser().unwrap();
-
-         if(res){
-                dispatch(clearCredentials());
-                dispatch(clearTempUserDetails());
-                dispatch(clearMemberProfile());
-                dispatch(setNotification({ status: true, message: res.message, type: "success"}));
-                navigate("/auth/login")
-         }
-  }
 
   useEffect(() => {
          const time = new Date().getHours();
@@ -49,6 +30,7 @@ const Dashboard = () => {
                           </div>
                           <BalanceRow />
                           <ChartPlusMembersRow />
+                          <TransactionRow />
              </div>
     </div>
   )

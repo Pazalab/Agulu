@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
        notification: { status: false, message: "", type: ""},
+       sidebarStatus: false
 }
 
 const utilsSlice = createSlice({
@@ -17,6 +18,9 @@ const utilsSlice = createSlice({
                    state.notification.status = false;
                    state.notification.message = "";
                    state.notification.type = ""
+             },
+             setSidebarStatus: (state) => {
+                     state.sidebarStatus = !state.sidebarStatus
              }
       }
 })
@@ -24,6 +28,8 @@ const utilsSlice = createSlice({
 export const {
        setNotification,
        clearNotification,
+       setSidebarStatus,
+       closeSidebarStatus
 } = utilsSlice.actions;
 
 export default utilsSlice.reducer;

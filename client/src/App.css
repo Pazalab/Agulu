@@ -10,6 +10,7 @@
      --main-color: rgb(21, 126, 62);
      --regular-font: "Outfit", sans-serif;
      --faded: rgba(238, 247, 242, 0.779);
+     --box-shadow: 0px 0px 2px -1px rgb(170, 192, 180);
 }
 
 body{

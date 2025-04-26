@@ -9,12 +9,14 @@ import { SlSettings } from "react-icons/sl";
 import { RiSecurePaymentFill } from "react-icons/ri";
 import { HiOutlineChevronDown } from "react-icons/hi";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 const Sidebar = () => {
   const [transactBar, setTransactBar] = useState(false);
+  const { sidebarStatus } = useSelector(state => state.utils)
 
   return (
-    <div className="sidebar-block">
+    <div className={ sidebarStatus ? "sidebar-block active" : "sidebar-block"}>
               <div className="sidebar-header">
                       <Link to={'/member/id'} className="dashboard-logo-item">
                                    <h2>Agulu</h2>

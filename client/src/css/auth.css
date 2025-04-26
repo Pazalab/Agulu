@@ -455,6 +455,76 @@
 }
 
 
+/* Admin Permission Denied */
+.admin-access-header{
+       padding: 20px 0;
+}
+
+.admin-access-header .inner-row{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+}
+.admin-access-header .back{
+       border: 1px solid var(--faded);
+       height: 40px;
+       display: flex;
+       align-items: center;
+       justify-content: center;
+       border-radius: 40px;
+       -webkit-border-radius: 40px;
+       -moz-border-radius: 40px;
+       -ms-border-radius: 40px;
+       -o-border-radius: 40px;
+       font-size: 14px;
+       padding: 0 30px;
+       color: rgb(15, 112, 59);
+       background: rgba(99, 220, 153, 0.222)
+}
+
+.admin-access-content{
+       min-height: 90vh;
+       display: flex;
+       align-items: center;
+       justify-content: center;
+}
+.admin-access-block{
+       width: 600px;;
+       text-align: center;
+}
+.admin-access-block h1{
+       font-size: 80px;
+       font-weight: 500;
+       color: var(--main-color);
+}
+.admin-access-block h3{
+       font-size: 40px;
+       font-weight: 450;
+       color: rgb(60, 60, 60);
+       margin-bottom: 10px;
+}
+.admin-access-block p{
+      font-size: 18px;
+      line-height: 1.6;
+      color: rgb(95, 95, 95);
+}
+
+.admin-access-block img{
+       width: 300px;
+}
+
+.admin-access-block p span{
+      font-weight: 550;
+      cursor: pointer;
+}
+
+
+
+
+
+
+
+
 
 @media(max-width: 1090px){
     .form-grid-texts{
@@ -493,5 +563,16 @@
        .member-error{
                width: 80%;
                gap: 10px
+       }
+       .admin-access-block{
+              width: 85%;
+       }
+}
+@media(max-width: 530px){
+       .admin-access-block h1{
+            font-size: 60px;
+       }
+       .admin-access-block h3{
+               font-size: 30px;
        }
 }

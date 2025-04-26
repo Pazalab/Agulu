@@ -7,6 +7,9 @@ import ForgotPassword from './pages/auth/ForgotPassword'
 import MemberRoutes from "./utils/MemberRoutes"
 import Dashboard from './pages/members/Dashboard'
 import Success from './pages/auth/Success'
+import AdminRoutes from './utils/AdminRoutes'
+import AdminDashboard from './pages/admin/AdminDashboard'
+import AdminAccess from './pages/auth/AdminAccess'
 function App() {
 
   return (
@@ -16,9 +19,16 @@ function App() {
                <Route path='/auth/signup' element={<Signup />} />
                <Route path='/auth/forgot-password' element={<ForgotPassword />} />
                <Route path='/auth/success' element={<Success />} />
+               <Route path='/auth/admin-access-denied' element={<AdminAccess />} />
                { /* Protected Routes */}
                <Route  element={<MemberRoutes />}>
                              <Route path='/member/:id' element={<Dashboard />} />
+               </Route>
+
+
+               { /* Admin Routes */}
+               <Route element={<AdminRoutes />}>
+                         <Route path='/admin/:id' element={<AdminDashboard />} />
                </Route>
     </Routes>
   )
