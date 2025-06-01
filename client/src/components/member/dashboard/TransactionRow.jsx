@@ -56,7 +56,7 @@ const TransactionRow = () => {
                                  </div>
                                  <div className="transaction-cell">
                                             <span><BsBank2 /></span>
-                                            <h4>Bank transfer</h4>
+                                            <h4>Bank</h4>
                                  </div>
                                  <div className="amount-cell">
                                           <span className="ksh">Ksh.</span>
@@ -83,7 +83,7 @@ const TransactionRow = () => {
                                  </div>
                                  <div className="transaction-cell">
                                              <img src={mpesa} alt="" className="mpesa" />
-                                            <h4>Mpesa transfer</h4>
+                                            <h4>Mpesa</h4>
                                  </div>
                                  <div className="amount-cell">
                                           <span className="ksh">Ksh.</span>
@@ -110,7 +110,7 @@ const TransactionRow = () => {
                                  </div>
                                  <div className="transaction-cell">
                                             <span><BsBank2 /></span>
-                                            <h4>Bank transfer</h4>
+                                            <h4>Bank</h4>
                                  </div>
                                  <div className="amount-cell">
                                           <span className="ksh">Ksh.</span>
@@ -137,7 +137,7 @@ const TransactionRow = () => {
                                  </div>
                                  <div className="transaction-cell">
                                              <img src={mpesa} alt="" className="mpesa" />
-                                            <h4>Mpesa transfer</h4>
+                                            <h4>Mpesa</h4>
                                  </div>
                                  <div className="amount-cell">
                                           <span className="ksh">Ksh.</span>
