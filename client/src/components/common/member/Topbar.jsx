@@ -61,7 +61,7 @@ const Topbar = () => {
                         <div ref={profileRef} className="topbar-profile">
                                    <div className="topbar-default" onClick={() => setProfilePop(true)}>
                                               <div className="profile-image">
-                                                        <img src={ member && member.profilePicture} alt="" />
+                                                        <img src={ member && member.profilePicture} alt="" referrerPolicy="no-referrer" />
                                               </div>
                                               <div className="name-email">
                                                        <div className="name-email-texts">

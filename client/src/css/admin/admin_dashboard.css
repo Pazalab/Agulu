@@ -1,5 +1,5 @@
 .admin-dashboard-wrapper{
-    background-color: rgba(237, 241, 240, 0.704);
+    background-color: rgba(237, 241, 240, 0.2);
     min-height: 105vh;;
 }
 
@@ -111,8 +111,9 @@
      align-items: center;
      padding: 30px 0;
 }
+
 .admin-dashboard-strip h2{
-     font-size: 40px;
+     font-size: 36px;
      font-weight: 300;
 }
 
@@ -120,7 +121,6 @@
      display: flex;
      align-items: center;
      gap: 20px;
-     ;
 }
 
 .strip-actions .download{
@@ -160,4 +160,222 @@
 .strip-actions a span{
     display: flex;
     margin-top: 1px;
+}
+
+
+.admin-dashboard-row{
+       display: grid;
+       grid-template-columns: 2fr 1fr;
+       gap: 20px;
+}
+
+.admin-dashboard-row-large{
+    
+}
+
+.summary-block{
+     display: grid;
+     grid-template-columns: repeat(3, 1fr);
+     gap: 10px;
+}
+
+.simple-block-moja{
+     background: white;
+     border-radius: 10px;
+     -webkit-border-radius: 10px;
+     -moz-border-radius: 10px;
+     -ms-border-radius: 10px;
+     -o-border-radius: 10px;
+     padding: 20px;
+}
+
+.block-moja-item{
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     padding-bottom: 14px;
+     border-bottom: 1px solid rgba(223, 228, 230, 0.592);
+}
+
+.block-moja-item h3{
+      display: flex;
+      font-size: 16px;
+      font-weight: 400;
+      align-items: center;
+      gap: 5px;
+}
+.block-moja-item h3 span{
+       font-size: 13px;
+       display: flex;
+       margin-top: 2px;
+       cursor: pointer;;
+}
+
+.block-moja-item h5{
+     font-size: 13px;
+     font-weight: 250;
+     color: rgb(70, 70, 70);
+}
+
+.simple-block-moja:nth-child(2) .block-moja-item .icon{
+     background: rgb(216, 255, 236);
+     color: rgb(0, 182, 103);
+}
+
+.simple-block-moja:nth-child(3) .block-moja-item .icon{
+     background: rgb(255, 242, 216);
+     color: rgb(249, 185, 7);
+}
+
+.block-moja-item .icon{
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+      -webkit-border-radius: 6px;
+      -moz-border-radius: 6px;
+      -ms-border-radius: 6px;
+      -o-border-radius: 6px;
+      color: rgb(19, 165, 255);
+      background: #8edbff3d;
+}
+
+
+
+.block-moja-money{
+     padding-top: 8px;
+}
+
+.block-moja-money h2{
+     font-weight: 400;
+}
+
+.block-moja-money p{
+      font-size: 13px;
+      color: rgb(19, 165, 255);
+}
+
+.simple-block-moja:nth-child(2) .block-moja-money p{
+     color: rgb(0, 182, 103);
+}
+
+.simple-block-moja:nth-child(3) .block-moja-money p{
+     color: rgb(249, 185, 7);
+}
+.admin-chart{
+     margin-top: 20px;
+     background: white;
+     border-radius: 10px;
+     -webkit-border-radius: 10px;
+     -moz-border-radius: 10px;
+     -ms-border-radius: 10px;
+     -o-border-radius: 10px;
+}
+.admin-chart .chart-row-column{
+     box-shadow: none;
+}
+.admin-chart .chart-body{
+     margin-top: 20px;
+}
+
+.agulu-gains-wrap{
+     background: white;
+     padding: 20px;
+     border-radius: 10px;
+     -webkit-border-radius: 10px;
+     -moz-border-radius: 10px;
+     -ms-border-radius: 10px;
+     -o-border-radius: 10px;
+}
+
+.agulu-gains-wrap h3{
+     font-size: 20px;
+     font-weight: 400;
+     padding-bottom: 5px;
+     border-bottom: 1px solid var(--faded);
+     margin-bottom: 10px;
+}
+.gains-block-group{
+       display: flex;
+       gap: 30px;
+       flex-wrap: wrap;
+}
+
+
+.gains-block-group span.line{
+     display: flex;
+     width: 1px;
+     height: 80px;
+     background: var(--faded);
+}
+.gains-block h4{
+     font-size: 15px;
+     font-weight: 400;
+     color: #222;
+     margin-bottom: 20px;
+}
+
+.gains-block h2{
+      font-size: 32px;
+      font-weight: 400;
+}
+
+.agulu-members{
+      background: white;
+      margin-top: 10px;
+      padding: 20px;
+      border-radius: 10px;
+      -webkit-border-radius: 10px;
+      -moz-border-radius: 10px;
+      -ms-border-radius: 10px;
+      -o-border-radius: 10px;
+}
+
+.agulu-members h3{
+      font-weight: 450;
+      font-size: 18px;
+      padding-bottom: 5px;
+      border-bottom: 1px solid rgba(237, 237, 237, 0.438);
+      margin-bottom: 10px;
+}
+
+.member-profile-column{
+     display: flex;
+     gap: 10px;
+     align-items: center;
+}
+
+.member-profile-column .profile-image{
+        flex-shrink: 0;
+        width: 45px;
+        height: 45px;
+}
+.member-profile-column .profile-image img{
+     border-radius: 40px;
+     -webkit-border-radius: 40px;
+     -moz-border-radius: 40px;
+     -ms-border-radius: 40px;
+     -o-border-radius: 40px;
+}
+
+.member-profile-column .profile-texts h4{
+      font-size: 15px;
+      font-weight: 460;
+}
+.member-profile-column .profile-texts p{
+       font-size: 13px;
+       font-weight: 330;
+}
+
+.agulu-member-list span{
+     display: flex;
+}
+
+
+.member-moja{
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
 }

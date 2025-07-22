@@ -5,6 +5,10 @@ import { IoCloudDownloadOutline } from "react-icons/io5";
 import { MdAddchart } from "react-icons/md";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import SummaryBlock from "../../components/admin/dashboard/SummaryBlock";
+import ChartFinance from "../../components/admin/dashboard/ChartFinance";
+import AguluGains from "../../components/member/dashboard/AguluGains";
+import AguluMembers from "../../components/member/dashboard/AguluMembers";
 
 const AdminDashboard = () => {
   const [ greeting, setGreeting ] = useState("Welcome Back")
@@ -30,6 +34,19 @@ const AdminDashboard = () => {
                                         <span className="download"><IoCloudDownloadOutline /></span>
                                         <Link to={"/"}><span><MdAddchart /></span>Add Transaction</Link>
                                </div>
+                       </div>
+
+                       <div className="admin-dashboard-row">
+                                 <div className="admin-dashboard-row-large">
+                                            <SummaryBlock />
+                                            <div className="admin-chart">
+                                                     <ChartFinance />
+                                            </div>
+                                 </div>
+                                 <div className="admin-dashboard-row-small">
+                                           <AguluGains />
+                                           <AguluMembers />
+                                 </div>
                        </div>
               </div>
     </div>
